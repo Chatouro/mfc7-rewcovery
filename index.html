@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MFC-7 Recovery | Kinesiología & Rehabilitación Deportiva</title>
+    <meta name="description" content="MFC-7 Recovery - Kinesiología y osteopatía para deportistas. Rehabilitación deportiva, prevención de lesiones y alto rendimiento.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { --gold-primary: #D4AF37; --gold-light: #F4E4BC; --gold-dark: #AA8C2C; --black-primary: #0a0a0a; }
+        * { scroll-behavior: smooth; }
+        body { font-family: 'Rajdhani', sans-serif; background-color: var(--black-primary); color: white; overflow-x: hidden; }
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        .text-gold { color: var(--gold-primary); }
+        .text-gold-light { color: var(--gold-light); }
+        .bg-gold { background-color: var(--gold-primary); }
+        .border-gold { border-color: var(--gold-primary); }
+        .gradient-gold { background: linear-gradient(135deg, #D4AF37 0%, #F4E4BC 50%, #AA8C2C 100%); }
+        .gradient-text { background: linear-gradient(135deg, #D4AF37 0%, #F4E4BC 50%, #D4AF37 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-pattern { background-image: radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.08) 0%, transparent 50%), linear-gradient(to bottom, rgba(10,10,10,0.9), rgba(10,10,10,1)), url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23D4AF37" fill-opacity="0.03"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E'); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15); }
+        .btn-gold { background: linear-gradient(135deg, #D4AF37 0%, #AA8C2C 100%); transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .btn-gold:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); }
+        .btn-gold::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent); transform: rotate(45deg); animation: shine 3s infinite; }
+        @keyframes shine { 0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); } 20% { transform: translateX(100%) translateY(100%) rotate(45deg); } 100% { transform: translateX(100%) translateY(100%) rotate(45deg); } }
+        .experience-card { background: linear-gradient(145deg, rgba(26,26,26,0.8) 0%, rgba(15,15,15,0.9) 100%); border: 1px solid rgba(212, 175, 55, 0.2); backdrop-filter: blur(10px); transition: all 0.3s ease; }
+        .experience-card:hover { border-color: var(--gold-primary); transform: translateX(10px); }
+        .scroll-reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .scroll-reveal.active { opacity: 1; transform: translateY(0); }
+        .price-tag { position: relative; background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(170, 140, 44, 0.05) 100%); border: 1px solid rgba(212, 175, 55, 0.3); transition: all 0.3s ease; }
+        .price-tag:hover { border-color: var(--gold-primary); background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(170, 140, 44, 0.1) 100%); }
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; z-index: 100; animation: pulse-whatsapp 2s infinite; }
+        @keyframes pulse-whatsapp { 0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 50% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); } }
+        .quote-mark { font-size: 6rem; line-height: 1; color: rgba(212, 175, 55, 0.2); font-family: serif; }
+        .logo-glow { filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3)); animation: logo-pulse 3s ease-in-out infinite; }
+        @keyframes logo-pulse { 0%, 100% { filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3)); } 50% { filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.6)); } }
+        .stat-card { background: linear-gradient(145deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%); border: 1px solid rgba(212, 175, 55, 0.3); backdrop-filter: blur(10px); }
+        .stat-number-big { font-size: 4rem; line-height: 1; background: linear-gradient(135deg, #D4AF37 0%, #F4E4BC 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
+        .logo-css { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 2rem; line-height: 1; display: flex; align-items: center; letter-spacing: -0.02em; }
+        .logo-css .mfc { color: white; }
+        .logo-css .seven { color: var(--gold-primary); margin-left: 2px; }
+        .logo-css-large { font-size: 5rem; }
+        .logo-css-xl { font-size: 7rem; }
+        .mobile-menu-open { display: flex !important; animation: slideDown 0.3s ease; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .btn-loading { opacity: 0.7; pointer-events: none; }
+        section[id] { scroll-margin-top: 100px; }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--gold-primary); outline-offset: 2px; }
+        @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
+    </style>
+</head>
+<body class="antialiased">
+    <a href="https://wa.me/5493704240790" target="_blank" rel="noopener noreferrer" class="whatsapp-float bg-green-500 hover:bg-green-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transition-all hover:scale-110" aria-label="Contactar por WhatsApp"><i data-lucide="message-circle" class="w-8 h-8 fill-white"></i></a>
+    <nav class="fixed w-full z-50 bg-black/90 backdrop-blur-md border-b border-gold/10 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="logo-css logo-glow"><span class="mfc">MFC</span><span class="seven">7</span></div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#experiencia" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Experiencia</a>
+                    <a href="#filosofia" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Filosofía</a>
+                    <a href="#logros" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Logros</a>
+                    <a href="#planes" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Planes</a>
+                    <a href="#contacto" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Contacto</a>
+                </div>
+                <a href="https://wa.me/5493704240790212, 175, 55, 0.2); backdrop-filter: blur(10px); transition: all 0.3s ease; }
+        .experience-card:hover { border-color: var(--gold-primary); transform: translateX(10px); }
+        .scroll-reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .scroll-reveal.active { opacity: 1; transform: translateY(0); }
+        .price-tag { position: relative; background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(170, 140, 44, 0.05) 100%); border: 1px solid rgba(212, 175, 55, 0.3); transition: all 0.3s ease; }
+        .price-tag:hover { border-color: var(--gold-primary); background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(170, 140, 44, 0.1) 100%); }
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; z-index: 100; animation: pulse-whatsapp 2s infinite; }
+        @keyframes pulse-whatsapp { 0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 50% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); } }
+        .quote-mark { font-size: 6rem; line-height: 1; color: rgba(212, 175, 55, 0.2); font-family: serif; }
+        .logo-glow { filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3)); animation: logo-pulse 3s ease-in-out infinite; }
+        @keyframes logo-pulse { 0%, 100% { filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3)); } 50% { filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.6)); } }
+        .stat-card { background: linear-gradient(145deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%); border: 1px solid rgba(212, 175, 55, 0.3); backdrop-filter: blur(10px); }
+        .stat-number-big { font-size: 4rem; line-height: 1; background: linear-gradient(135deg, #D4AF37 0%, #F4E4BC 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
+        .logo-css { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 2rem; line-height: 1; display: flex; align-items: center; letter-spacing: -0.02em; }
+        .logo-css .mfc { color: white; }
+        .logo-css .seven { color: var(--gold-primary); margin-left: 2px; }
+        .logo-css-large { font-size: 5rem; }
+        .logo-css-xl { font-size: 7rem; }
+        .mobile-menu-open { display: flex !important; animation: slideDown 0.3s ease; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .btn-loading { opacity: 0.7; pointer-events: none; }
+        section[id] { scroll-margin-top: 100px; }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--gold-primary); outline-offset: 2px; }
+        @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
+    </style>
+</head>
+<body class="antialiased">
+    <a href="https://wa.me/5493704240790" target="_blank" rel="noopener noreferrer" class="whatsapp-float bg-green-500 hover:bg-green-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transition-all hover:scale-110" aria-label="Contactar por WhatsApp"><i data-lucide="message-circle" class="w-8 h-8 fill-white"></i></a>
+    <nav class="fixed w-full z-50 bg-black/90 backdrop-blur-md border-b border-gold/10 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="logo-css logo-glow"><span class="mfc">MFC</span><span class="seven">7</span></div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#experiencia" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Experiencia</a>
+                    <a href="#filosofia" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Filosofía</a>
+                    <a href="#logros" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Logros</a>
+                    <a href="#planes" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Planes</a>
+                    <a href="#contacto" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Contacto</a>
+                </div>
+                <a href="https://wa.me/5493704240790" target="_blank" rel="noopener noreferrer" class="hidden md:block btn-gold text-black font-bold py-2 px-6 rounded-full uppercase tracking-wider text-sm">Agendar Consulta</a>
+                <button id="menu-btn" class="md:hidden text-gold focus:outline-none p-2" aria-label="Abrir menú" aria-expanded="false"><i data-lucide="menu" class="w-8 h-8" id="menu-icon"></i></button>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-black/95 backdrop-blur-md border-b border-gold/20">
+                <div class="flex flex-col p-6 space-y-4">
+                    <a href="#experiencia" class="text-gray-300 hover:text-gold uppercase tracking-widest text-sm font-semibold py-2 border-b border-gray-800">Experiencia</a>
+                    <a href="#filosofia" class="text-gray-300 hover:text-gold uppercase tracking-widest text-sm font-semibold py-2 border-b border-gray-800">Filosofía</a>
+                    <a href="#logros" class="text-gray-300 hover:text-gold uppercase tracking-widest text-sm font-semibold py-2 border-b border-gray-800">Logros</a>
+                    <a href="#planes" class="text-gray-300 hover:text-gold uppercase tracking-widest text-sm font-semibold py-2 border-b border-gray-800">Planes</a>
+                    <a href="#contacto" class="text-gray-300 hover:text-gold uppercase tracking-widest text-sm font-semibold py-2 border-b border-gray-800">Contacto</a>
+                    <a href="https://wa.me/5493704240790" target="_blank" rel="noopener noreferrer" class="btn-gold text-black font-bold py-3 px-6 rounded-full uppercase tracking-wider text-sm text-center mt-4">Agendar Consulta</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="relative min-h-screen flex items-center hero-pattern pt-20 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="mb-8 logo-glow inline-block"><div class="logo-css logo-css-xl"><span class="mfc">MFC</span><span class="seven">7</span></div></div>
+                <h1 class="font-orbitron text-4xl md:text-6xl font-bold text-gold-light tracking-wider mb-6">RECOVERY</h1>
+                <p class="text-2xl md:text-3xl text-white font-light italic mb-8">"Volve a tu mejor versión"</p>
+                <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">Rehabilitación, prevención y alto rendimiento. Kinesiología y osteopatía para deportistas y personas que quieren moverse mejor.</p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="https://wa.me/5493704240790" target="_blank" rel="noopener noreferrer" class="btn-gold text-black font-bold py-4 px-8 rounded-full uppercase tracking-wider text-lg flex items-center gap-2" onclick="handleWhatsAppClick(this)"><span>Agendar Evaluación</span><i data-lucide="arrow-right" class="w-5 h-5"></i></a>
+                    <a href="#planes" class="border border-gold/50 text-gold hover:bg-gold hover:text-black font-bold py-4 px-8 rounded-full uppercase tracking-wider text-lg transition-all duration-300">Ver Planes</a>
+                </div>
+                <div class="flex gap-8 justify-center pt-12 border-t border-gold/20 mt-12 flex-wrap">
+                    <div class="text-center"><div class="text-3xl font-orbitron font-bold text-gold">12</div><div class="text-gray-400 text-sm uppercase tracking-wider">Podiums Elite<br><span class="text-gold text-xs">2019-2024</span></div></div>
+                    <div class="text-center"><div class="text-3xl font-orbitron font-bold text-gold">Top 5</div><div class="text-gray-400 text-sm uppercase tracking-wider">OCR Mundial<br><span class="text-gold text-xs">2023</span></div></div>
+                    <div class="text-center"><div class="text-3xl font-orbitron font-bold text-gold">WTA</div><div class="text-gray-400 text-sm uppercase tracking-wider">Circuito Tenis<br><span class="text-gold text-xs">Internacional</span></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="logros" class="py-20 bg-gradient-to-b from-black to-gray-900 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 scroll-reveal">
+                <h2 class="font-orbitron text-3xl md:text-4xl font-black mb-4"><span class="gradient-text">TRAYECTORIA DEPORTIVA</span></h2>
+                <p class="text-gray-400">Resultados que respaldan mi experiencia como atleta élite</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="stat-card rounded-2xl p-212, 175, 55, 0.2); backdrop-filter: blur(10px); transition: all 0.3s ease; }
+        .experience-card:hover { border-color: var(--gold-primary); transform: translateX(10px); }
+        .scroll-reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .scroll-reveal.active { opacity: 1; transform: translateY(0); }
+        .price-tag { position: relative; background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(170, 140, 44, 0.05) 100%); border: 1px solid rgba(212, 175, 55, 0.3); transition: all 0.3s ease; }
+        .price-tag:hover { border-color: var(--gold-primary); background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(170, 140, 44, 0.1) 100%); }
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; z-index: 100; animation: pulse-whatsapp 2s infinite; }
+        @keyframes pulse-whatsapp { 0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 50% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); } }
+        .quote-mark { font-size: 6rem; line-height: 1; color: rgba(212, 175, 55, 0.2); font-family: serif; }
+        .logo-glow { filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3)); animation: logo-pulse 3s ease-in-out infinite; }
+        @keyframes logo-pulse { 0%, 100% { filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3)); } 50% { filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.6)); } }
+        .stat-card { background: linear-gradient(145deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%); border: 1px solid rgba(212, 175, 55, 0.3); backdrop-filter: blur(10px); }
+        .stat-number-big { font-size: 4rem; line-height: 1; background: linear-gradient(135deg, #D4AF37 0%, #F4E4BC 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
+        .logo-css { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 2rem; line-height: 1; display: flex; align-items: center; letter-spacing: -0.02em; }
+        .logo-css .mfc { color: white; }
+        .logo-css .seven { color: var(--gold-primary); margin-left: 2px; }
+        .logo-css-large { font-size: 5rem; }
+        .logo-css-xl { font-size: 7rem; }
+        .mobile-menu-open { display: flex !important; animation: slideDown 0.3s ease; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .btn-loading { opacity: 0.7; pointer-events: none; }
+        section[id] { scroll-margin-top: 100px; }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--gold-primary); outline-offset: 2px; }
+        @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
+    </style>
+</head>
+<body class="antialiased">
+    <a href="https://wa.me/5493704240790" target="_blank" rel="noopener noreferrer" class="whatsapp-float bg-green-500 hover:bg-green-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transition-all hover:scale-110" aria-label="Contactar por WhatsApp"><i data-lucide="message-circle" class="w-8 h-8 fill-white"></i></a>
+    <nav class="fixed w-full z-50 bg-black/90 backdrop-blur-md border-b border-gold/10 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="logo-css logo-glow"><span class="mfc">MFC</span><span class="seven">7</span></div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#experiencia" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Experiencia</a>
+                    <a href="#filosofia" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Filosofía</a>
+                    <a href="#logros" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Logros</a>
+                    <a href="#planes" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Planes</a>
+                    <a href="#contacto" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Contacto</a>
+                </div>
+                <a href="https://wa.me/5493704240790" target="_blank" rel="noopener noreferrer" class="hidden md:block btn-gold text-black font-bold py-2 px-6 rounded-full uppercase tracking-wider text-sm">Agendar Consulta</a>
+                <button id="menu-btn" class="md:hidden text-gold focus:outline-none p-2" aria-label="Abrir menú" aria-expanded="false"><i data-lucide="menu" class="w-8 h-8" id="menu-icon"></i></button>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-black/95 backdrop-blur-md border-b border-gold/20">
+                <div class="flex flex-col p-6 space-y-4">
+                    <a href="#experiencia" class="text-gray-300 hover:text-gold uppercase tracking-widest text-sm font-semibold py-2 border-b border-gray-800">Experiencia</a>
+                    <a href="#filosofia" class="text-gray-300 hover:text-gold uppercase tracking-widest text-sm font-semibold py-2 border-b border-gray-800">Filosofía</a>
+                    <a href="#logros" class="text-gray-300 hover:text-gold uppercase tracking-widest text-sm font-semibold py-2 border-b border-gray-800">Logros</a>
+                    <a href="#planes" class="text-gray-300 hover:text-gold uppercase tracking-widest text-sm font-semibold py-2 border-b border-gray-800">Planes</a>
+                    <a href="#contacto" class="text-gray-300 hover:text-gold uppercase tracking-widest text-sm font-semibold py-2 border-b border-gray-800">Contacto</a>
+                    <a href="https://wa.me/5493704240790" target="_blank" rel="noopener noreferrer" class="btn-gold text-black font-bold py-3 px-6 rounded-full uppercase tracking-wider text-sm text-center mt-4">Agendar Consulta</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="relative min-h-screen flex items-center hero-pattern pt-20 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="mb-8 logo-glow inline-block"><div class="logo-css logo-css-xl"><span class="mfc">MFC</span><span class="seven">7</span></div></div>
+                <h1 class="font-orbitron text-4xl md:text-6xl font-bold text-gold-light tracking-wider mb-6">RECOVERY</h1>
+                <p class="text-2xl md:text-3xl text-white font-light italic mb-8">"Volve a tu mejor versión"</p>
+                <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">Rehabilitación, prevención y alto rendimiento. Kinesiología y osteopatía para deportistas y personas que quieren moverse mejor.</p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="https://wa.me/5493704240790" target="_blank" rel="noopener noreferrer" class="btn-gold text-black font-bold py-4 px-8 rounded-full uppercase tracking-wider text-lg flex items-center gap-2" onclick="handleWhatsAppClick(this)"><span>Agendar Evaluación</span><i data-lucide="arrow-right" class="w-5 h-5"></i></a>
+                    <a href="#planes" class="border border-gold/50 text-gold hover:bg-gold hover:text-black font-bold py-4 px-8 rounded-full uppercase tracking-wider text-lg transition-all duration-300">Ver Planes</a>
+                </div>
+                <div class="flex gap-8 justify-center pt-12 border-t border-gold/20 mt-12 flex-wrap">
+                    <div class="text-center"><div class="text-3xl font-orbitron font-bold text-gold">12</div><div class="text-gray-400 text-sm uppercase tracking-wider">Podiums Elite<br><span class="text-gold text-xs">2019-2024</span></div></div>
+                    <div class="text-center"><div class="text-3xl font-orbitron font-bold text-gold">Top 5</div><div class="text-gray-400 text-sm uppercase tracking-wider">OCR Mundial<br><span class="text-gold text-xs">2023</span></div></div>
+                    <div class="text-center"><div class="text-3xl font-orbitron font-bold text-gold">WTA</div><div class="text-gray-400 text-sm uppercase tracking-wider">Circuito Tenis<br><span class="text-gold text-xs">Internacional</span></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="logros" class="py-20 bg-gradient-to-b from-black to-gray-900 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 scroll-reveal">
+                <h2 class="font-orbitron text-3xl md:text-4xl font-black mb-4"><span class="gradient-text">TRAYECTORIA DEPORTIVA</span></h2>
+                <p class="text-gray-400">Resultados que respaldan mi experiencia como atleta élite</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="stat-card rounded-2xl p-8 text-center scroll-reveal"><div class="stat-number-big font-orbitron mb-2">12</div><div class="text-gold font-bold uppercase tracking-wider mb-1">Podiums</div><div class="text-gray-400 text-sm uppercase tracking-wider">Elite Spartan<br><span class="text-gold text-xs">2019-2024</span></div></div>
+                <div class="stat-card rounded-2xl p-8 text-center scroll-reveal"><div class="stat-number-big font-orbitron mb-2">Top 5</div><div class="text-gold font-bold uppercase tracking-wider mb-1">OCR World</div><div class="text-gray-400 text-sm uppercase tracking-wider">Championship<br><span class="text-gold text-xs">2023</span></div></div>
+                <div class="stat-card rounded-2xl p-8 text-center scroll-reveal"><div class="stat-number-big font-orbitron mb-2">5°/6°</div><div class="text-gold font-bold uppercase tracking-wider mb-1">Mundial</div><div class="text-gray-400 text-sm uppercase tracking-wider">Spartan '23<br><span class="text-gold text-xs">Abu Dhabi</span></div></div>
+            </div>
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="text-center group cursor-pointer scroll-reveal"><div class="w-20 h-20 mx-auto rounded-full border-2 border-gold/30 flex items-center justify-center mb-4 group-hover:bg-gold/10 transition-all duration-300"><i data-lucide="activity" class="w-8 h-8 text-gold"></i></div><h3 class="text-gold font-bold uppercase tracking-wider text-sm">Kinesiología</h3><p class="text-gray-500 text-xs mt-1">Rehabilitación deportiva</p></div>
+                <div class="text-center group cursor-pointer scroll-reveal"><div class="w-20 h-20 mx-auto rounded-full border-2 border-gold/30 flex items-center justify-center mb-4 group-hover:bg-gold/10 transition-all duration-300"><i data-lucide="shield" class="w-8 h-8 text-gold"></i></div><h3 class="text-gold font-bold uppercase tracking-wider text-sm">Osteopatía</h3><p class="text-gray-500 text-xs mt-1">Tratamiento integral</p></div>
+                <div class="text-center group cursor-pointer scroll-reveal"><div class="w-20 h-20 mx-auto rounded-full border-2 border-gold/30 flex items-center justify-center mb-4 group-hover:bg-gold/10 transition-all duration-300"><i data-lucide="shirt" class="w-8 h-8 text-gold"></i></div><h3 class="text-gold font-bold uppercase tracking-wider text-sm">Indumentaria</h3><p class="text-gray-500 text-xs mt-1">Deportiva especializada</p></div>
+                <div class="text-center group cursor-pointer scroll-reveal"><div class="w-20 h-20 mx-auto rounded-full border-2 border-gold/30 flex items-center justify-center mb-4 group-hover:bg-gold/10 transition-all duration-300"><i data-lucide="zap" class="w-8 h-8 text-gold"></i></div><h3 class="text-gold font-bold uppercase tracking-wider text-sm">Fuxion</h3><p class="text-gray-500 text-xs mt-1">Nutrición deportiva</p></div>
+            </div>
+        </div>
+    </section>
+    <section id="filosofia" class="py-24 bg-black relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="scroll-reveal">
+                <div class="relative">
+                    <span class="quote-mark absolute -top-10 -left-6">"</span>
+                    <div class="space-y-6 text-lg md:text-xl text-gray-300 leading-relaxed pl-8">
+                        <p class="text-2xl md:text-3xl text-white font-light">Soy kinesióloga y osteópata, atleta élite con años de experiencia en competencias internacionales.</p>
+                        <p>Trabajo tanto con deportistas de alto nivel y amateurs como con cualquier persona que quiera recuperarse, moverse mejor y vivir sin dolor.</p>
+                        <p>Mi enfoque integra <span class="text-gold font-semibold">evaluación clínica</span>, <span class="text-gold font-semibold">tratamiento personalizado</span> y <span class="text-gold font-semibold">planificación del movimiento</span>. Combino la mirada terapéutica con mi experiencia en competencia internacional para lograr procesos efectivos, seguros y sostenibles.</p>
+                        <div class="pt-6 border-t border-gold/20 mt-8"><p class="text-2xl text-gold-light font-semibold italic">No es solo tratar una lesión.<br>Es entender el cuerpo, corregir la causa y construir una base sólida para que vuelvas a moverte con confianza.</p></div>
+                    </div>
+                    <span class="quote-mark absolute -bottom-20 right-0 rotate-180">"</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="experiencia" class="py-24 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="font-orbitron text-4xl md:text-5xl font-black mb-4"><span class="gradient-text">EXPERIENCIA PROFESIONAL</span></h2>
+                <p class="text-gray-400 text-lg">Trayectoria en el ámbito deportivo y clínico</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="experience-card rounded-2xl p-8 scroll-reveal"><div class="flex items-start gap-4"><div class="w-14 h-14 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center flex-shrink-0"><span class="text-2xl">🎾</span></div><div><h3 class="text-xl font-bold text-white mb-2">Kinesióloga del Circuito de Tenis Femenino</h3><p class="text-gold font-semibold mb-2">WTA Tour</p><p class="text-gray-400 text-sm">Atención integral de tenistas profesionales en competencias internacionales. Prevención, tratamiento inmediato y recuperación funcional.</p></div></div></div>
+                <div class="experience-card rounded-2xl p-8 scroll-reveal"><div class="flex items-start gap-4"><div class="w-14 h-14 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center flex-shrink-0"><i data-lucide="car" class="w-6 h-6 text-gold"></i></div><div><h3 class="text-xl font-bold text-white mb-2">Kinesióloga del TC</h3><p class="text-gold font-semibold mb-2">Turismo Carretera</p><p class="text-gray-400 text-sm">Atención a pilotos y equipos de competición. Manejo de alta demanda física y estrategias de recuperación entre carreras.</p></div></div></div>
+                <div class="experience-card rounded-2xl p-8 scroll-reveal"><div class="flex items-start gap-4"><div class="w-14 h-14 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center flex-shrink-0"><i data-lucide="mountain" class="w-6 h-6 text-gold"></i></div><div><h3 class="text-xl font-bold text-white mb-2">Kinesióloga Centro de Entrenamiento</h3><p class="text-gold font-semibold mb-2">Estapartano360</p><p class="text-gray-400 text-sm">Centro especializado en preparación física y OCR. Desarrollo de protocolos de recuperación para atletas de resistencia.</p></div></div></div>
+                <div class="experience-card rounded-2xl p-8 scroll-reveal"><div class="flex items-start gap-4"><div class="w-14 h-14 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center flex-shrink-0"><i data-lucide="building-2" class="w-6 h-6 text-gold"></i></div><div><h3 class="text-xl font-bold text-white mb-2">Ergonomía Laboral</h3><p class="text-gold font-semibold mb-2">Empresas Internacionales</p><p class="text-gray-400 text-sm">Consultoría en prevención de lesiones laborales, evaluación ergonómica y programas de bienestar corporativo.</p></div></div></div>
+            </div>
+            <div class="mt-12 text-center scroll-reveal"><div class="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-gold/30 bg-gold/5"><i data-lucide="award" class="w-5 h-5 text-gold"></i><span class="text-gold-light font-semibold">Atleta Élite Internacional • Embajadora Spartan • Top 5 OCR Mundial</span></div></div>
+        </div>
+    </section>
+    <section id="planes" class="py-24 bg-black relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="font-orbitron text-4xl md:text-5xl font-black mb-4"><span class="gradient-text">PLANES MFC-7</span></h2>
+                <p class="text-2xl text-gold-light mb-4 italic">"Rehabilitar sin dejar de entrenar"</p>
+                <p class="text-gray-400 text-lg max-w-3xl mx-auto">Programas de 4 semanas diseñados para mantener tu actividad física mientras recuperás de una lesión.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="price-tag rounded-2xl p-8 card-hover scroll-reveal">
+                    <div class="text-center mb-8"><div class="inline-block mb-4 logo-glow"><div class="logo-css logo-css-large"><span class="mfc">MFC</span><span class="seven">7</span></div></div><h3 class="text-2xl font-bold text-gold-light mb-2 uppercase tracking-wider">Base</h3><div class="flex items-baseline justify-center gap-1 my-4"><span class="text-3xl text-gray-400">$</span><span class="text-5xl font-orbitron font-black text-white">100.000</span><span class="text-xl text-gray-400">ARS</span></div><p class="text-gray-400 text-sm uppercase tracking-wider">4 semanas de duración</p></div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start gap-3 text-gray-300"><i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0 mt-0.5"></i><span><strong class="text-white">Evaluación inicial personalizada</strong><br><span class="text-sm text-gray-400">Análisis completo de tu situación</span></span></li>
+                        <li class="flex items-start gap-3 text-gray-300"><i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0 mt-0.5"></i><span><strong class="text-white">Planificación personalizada</strong><br><span class="text-sm text-gray-400">Rutina adaptada a tu lesión y objetivos</span></span></li>
+                        <li class="flex items-start gap-3 text-gray-300"><i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0 mt-0.5"></i><span><strong class="text-white">Videos explicativos</strong><br><span class="text-sm text-gray-400">Demostraciones de cada ejercicio</span></span></li>
+                        <li class="flex items-start gap-3 text-gray-300"><i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0 mt-0.5"></i><span><strong class="text-white">Grupo exclusivo de WhatsApp</strong><br><span class="text-sm text-gray-400">Comunidad de apoyo y consultas</span></span></li>
+                    </ul>
+                    <a href="https://wa.me/5493704240790?text=Hola! Me interesa el Plan MFC-7 Base ($100.000 ARS)" target="_blank" rel="noopener noreferrer" class="block w-full text-center border-2 border-gold text-gold hover:bg-gold hover:text-black font-bold py-4 rounded-full uppercase tracking-wider transition-all duration-300" onclick="handlePlanClick(this, 'Base')">Elegir Plan Base</a>
+                </div>
+                <div class="price-tag rounded-2xl p-8 card-hover border-gold bg-gradient-to-b from-gold/10 to-transparent relative scroll-reveal">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2"><span class="bg-gold text-black px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Recomendado</span></div>
+                    <div class="text-center mb-8"><div class="inline-block mb-4 logo-glow"><div class="logo-css logo-css-large"><span class="mfc">MFC</span><span class="seven">7</span></div></div><h3 class="text-2xl font-bold text-gold-light mb-2 uppercase tracking-wider">Elite</h3><div class="flex items-baseline justify-center gap-1 my-4"><span class="text-3xl text-gray-400">$</span><span class="text-5xl font-orbitron font-black text-white">130.000</span><span class="text-xl text-gray-400">ARS</span></div><p class="text-gray-400 text-sm uppercase tracking-wider">4 semanas de duración</p></div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start gap-3 text-gray-300"><i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0 mt-0.5"></i><span><strong class="text-white">Todo lo del Plan Base</strong><br><span class="text-sm text-gray-400">Evaluación, planificación, videos y grupo</span></span></li>
+                        <li class="flex items-start gap-3 text-gray-300"><i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0 mt-0.5"></i><span><strong class="text-white">Nutrición personalizada</strong><br><span class="text-sm text-gray-400">Plan alimenticio adaptado a tu recuperación</span></span></li>
+                        <li class="flex items-start gap-3 text-gray-300"><i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0 mt-0.5"></i><span><strong class="text-white">Seguimiento por WhatsApp diario</strong><br><span class="text-sm text-gray-400">Consultas ilimitadas todos los días</span></span></li>
+                        <li class="flex items-start gap-3 text-gray-300"><i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0 mt-0.5"></i><span><strong class="text-white">Entrevista semanal vía WhatsApp</strong><br><span class="text-sm text-gray-400">Videollamada 1 vez por semana</span></span></li>
+                    </ul>
+                    <a href="https://wa.me/5493704240790212, 175, 55, 0.2); backdrop-filter: blur(10px); transition: all 0.3s ease; }
+        .experience-card:hover { border-color: var(--gold-primary); transform: translateX(10px); }
+        .scroll-reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .scroll-reveal.active { opacity: 1; transform: translateY(0); }
+        .price-tag { position: relative; background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(170, 140, 44, 0.05) 100%); border: 1px solid rgba(212, 175, 55, 0.3); transition: all 0.3s ease; }
+        .price-tag:hover { border-color: var(--gold-primary); background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(170, 140, 44, 0.1) 100%); }
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; z-index: 100; animation: pulse-whatsapp 2s infinite; }
+        @keyframes pulse-whatsapp { 0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 50% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); } }
+        .quote-mark { font-size: 6rem; line-height: 1; color: rgba(212, 175, 55, 0.2); font-family: serif; }
+        .logo-glow { filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3)); animation: logo-pulse 3s ease-in-out infinite; }
+        @keyframes logo-pulse { 0%, 100% { filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3)); } 50% { filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.6)); } }
+        .stat-card { background: linear-gradient(145deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%); border: 1px solid rgba(212, 175, 55, 0.3); backdrop-filter: blur(10px); }
+        .stat-number-big { font-size: 4rem; line-height: 1; background: linear-gradient(135deg, #D4AF37 0%, #F4E4BC 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
+        .logo-css { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 2rem; line-height: 1; display: flex; align-items: center; letter-spacing: -0.02em; }
+        .logo-css .mfc { color: white; }
+        .logo-css .seven { color: var(--gold-primary); margin-left: 2px; }
+        .logo-css-large { font-size: 5rem; }
+        .logo-css-xl { font-size: 7rem; }
+        .mobile-menu-open { display: flex !important; animation: slideDown 0.3s ease; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .btn-loading { opacity: 0.7; pointer-events: none; }
+        section[id] { scroll-margin-top: 100px; }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--gold-primary); outline-offset: 2px; }
+        @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
+    </style>
+</head>
+<body class="antialiased">
+    <a href="https://wa.me/5493704240790" target="_blank" rel="noopener noreferrer" class="whatsapp-float bg-green-500 hover:bg-green-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transition-all hover:scale-110" aria-label="Contactar por WhatsApp"><i data-lucide="message-circle" class="w-8 h-8 fill-white"></i></a>
+    <nav class="fixed w-full z-50 bg-black/90 backdrop-blur-md border-b border-gold/10 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="logo-css logo-glow"><span class="mfc">MFC</span><span class="seven">7</span></div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#experiencia" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Experiencia</a>
+                    <a href="#filosofia" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Filosofía</a>
+                    <a href="#logros" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Logros</a>
+                    <a href="#planes" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Planes</a>
+                    <a href="#contacto" class="text-gray-300 hover:text-gold transition-colors uppercase tracking-widest text-sm font-semibold">Contacto</a>
+                </div>
+                <a href="https://wa.me/5493704240790" target="_blank" rel="noopener noreferrer" class="hidden md:block btn-gold text-black font-bold py-2 px-6 rounded-full uppercase tracking-wider text-sm">Agendar Consulta</a>
+                <button id="menu-btn" class="md:hidden text-gold focus:outline-none p-2" aria-label="Abrir menú" aria-expanded="false"><i data-lucide="menu" class="w-8 h-8" id="menu-icon"></i></button>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-black/95 backdrop-blur-md border-b border-gold/20">
+                <div class="flex flex-col p-6 space-y-4">
+                    <a href="#experiencia" class="text-gray-300 hover:text-gold uppercase tracking-widest text-sm font-semibold py-2 border-b border-gray-800">Experiencia</a>
+                    <a href="#filosofia" class="text-gray-300 hover:text-gold uppercase tracking-widest text-sm font-semibold py-2 border-b border-gray-800">Filosofía</a>
+                    <a href="#logros" class="text-gray-300 hover:text-gold uppercase tracking-widest text-sm font-semibold py-2 border-b border-gray-800">Logros</a>
+                    <a href="#planes" class="text-gray-300 hover:text-gold uppercase tracking-widest text-sm font-semibold py-2 border-b border-gray-800">Planes</a>
+                    <a href="#contacto" class="text-gray-300 hover:text-gold uppercase tracking-widest text-sm font-semibold py-2 border-b border-gray-800">Contacto</a>
+                    <a href="https://wa.me/5493704240790" target="_blank" rel="noopener noreferrer" class="btn-gold text-black font-bold py-3 px-6 rounded-full uppercase tracking-wider text-sm text-center mt-4">Agendar Consulta</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="relative min-h-screen flex items-center hero-pattern pt-20 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="mb-8 logo-glow inline-block"><div class="logo-css logo-css-xl"><span class="mfc">MFC</span><span class="seven">7</span></div></div>
+                <h1 class="font-orbitron text-4xl md:text-6xl font-bold text-gold-light tracking-wider mb-6">RECOVERY</h1>
+                <p class="text-2xl md:text-3xl text-white font-light italic mb-8">"Volve a tu mejor versión"</p>
+                <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">Rehabilitación, prevención y alto rendimiento. Kinesiología y osteopatía para deportistas y personas que quieren moverse mejor.</p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="https://wa.me/5493704240790" target="_blank" rel="noopener noreferrer" class="btn-gold text-black font-bold py-4 px-8 rounded-full uppercase tracking-wider text-lg flex items-center gap-2" onclick="handleWhatsAppClick(this)"><span>Agendar Evaluación</span><i data-lucide="arrow-right" class="w-5 h-5"></i></a>
+                    <a href="#planes" class="border border-gold/50 text-gold hover:bg-gold hover:text-black font-bold py-4 px-8 rounded-full uppercase tracking-wider text-lg transition-all duration-300">Ver Planes</a>
+                </div>
+                <div class="flex gap-8 justify-center pt-12 border-t border-gold/20 mt-12 flex-wrap">
+                    <div class="text-center"><div class="text-3xl font-orbitron font-bold text-gold">12</div><div class="text-gray-400 text-sm uppercase tracking-wider">Podiums Elite<br><span class="text-gold text-xs">2019-2024</span></div></div>
+                    <div class="text-center"><div class="text-3xl font-orbitron font-bold text-gold">Top 5</div><div class="text-gray-400 text-sm uppercase tracking-wider">OCR Mundial<br><span class="text-gold text-xs">2023</span></div></div>
+                    <div class="text-center"><div class="text-3xl font-orbitron font-bold text-gold">WTA</div><div class="text-gray-400 text-sm uppercase tracking-wider">Circuito Tenis<br><span class="text-gold text-xs">Internacional</span></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="logros" class="py-20 bg-gradient-to-b from-black to-gray-900 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 scroll-reveal">
+                <h2 class="font-orbitron text-3xl md:text-4xl font-black mb-4"><span class="gradient-text">TRAYECTORIA DEPORTIVA</span></h2>
+                <p class="text-gray-400">Resultados que respaldan mi experiencia como atleta élite</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="stat-card rounded-2xl p-8 text-center scroll-reveal"><div class="stat-number-big font-orbitron mb-2">12</div><div class="text-gold font-bold uppercase tracking-wider mb-1">Podiums</div><div class="text-gray-400 text-sm uppercase tracking-wider">Elite Spartan<br><span class="text-gold text-xs">2019-2024</span></div></div>
+                <div class="stat-card rounded-2xl p-8 text-center scroll-reveal"><div class="stat-number-big font-orbitron mb-2">Top 5</div><div class="text-gold font-bold uppercase tracking-wider mb-1">OCR World</div><div class="text-gray-400 text-sm uppercase tracking-wider">Championship<br><span class="text-gold text-xs">2023</span></div></div>
+                <div class="stat-card rounded-2xl p-8 text-center scroll-reveal"><div class="stat-number-big font-orbitron mb-2">5°/6°</div><div class="text-gold font-bold uppercase tracking-wider mb-1">Mundial</div><div class="text-gray-400 text-sm uppercase tracking-wider">Spartan '23<br><span class="text-gold text-xs">Abu Dhabi</span></div></div>
+            </div>
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="text-center group cursor-pointer scroll-reveal"><div class="w-20 h-20 mx-auto rounded-full border-2 border-gold/30 flex items-center justify-center mb-4 group-hover:bg-gold/10 transition-all duration-300"><i data-lucide="activity" class="w-8 h-8 text-gold"></i></div><h3 class="text-gold font-bold uppercase tracking-wider text-sm">Kinesiología</h3><p class="text-gray-500 text-xs mt-1">Rehabilitación deportiva</p></div>
+                <div class="text-center group cursor-pointer scroll-reveal"><div class="w-20 h-20 mx-auto rounded-full border-2 border-gold/30 flex items-center justify-center mb-4 group-hover:bg-gold/10 transition-all duration-300"><i data-lucide="shield" class="w-8 h-8 text-gold"></i></div><h3 class="text-gold font-bold uppercase tracking-wider text-sm">Osteopatía</h3><p class="text-gray-500 text-xs mt-1">Tratamiento integral</p></div>
+                <div class="text-center group cursor-pointer scroll-reveal"><div class="w-20 h-20 mx-auto rounded-full border-2 border-gold/30 flex items-center justify-center mb-4 group-hover:bg-gold/10 transition-all duration-300"><i data-lucide="shirt" class="w-8 h-8 text-gold"></i></div><h3 class="text-gold font-bold uppercase tracking-wider text-sm">Indumentaria</h3><p class="text-gray-500 text-xs mt-1">Deportiva especializada</p></div>
+                <div class="text-center group cursor-pointer scroll-reveal"><div class="w-20 h-20 mx-auto rounded-full border-2 border-gold/30 flex items-center justify-center mb-4 group-hover:bg-gold/10 transition-all duration-300"><i data-lucide="zap" class="w-8 h-8 text-gold"></i></div><h3 class="text-gold font-bold uppercase tracking-wider text-sm">Fuxion</h3><p class="text-gray-500 text-xs mt-1">Nutrición deportiva</p></div>
+            </div>
+        </div>
+    </section>
+    <section id="filosofia" class="py-24 bg-black relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="scroll-reveal">
+                <div class="relative">
+                    <span class="quote-mark absolute -top-10 -left-6">"</span>
+                    <div class="space-y-6 text-lg md:text-xl text-gray-300 leading-relaxed pl-8">
+                        <p class="text-2xl md:text-3xl text-white font-light">Soy kinesióloga y osteópata, atleta élite con años de experiencia en competencias internacionales.</p>
+                        <p>Trabajo tanto con deportistas de alto nivel y amateurs como con cualquier persona que quiera recuperarse, moverse mejor y vivir sin dolor.</p>
+                        <p>Mi enfoque integra <span class="text-gold font-semibold">evaluación clínica</span>, <span class="text-gold font-semibold">tratamiento personalizado</span> y <span class="text-gold font-semibold">planificación del movimiento</span>. Combino la mirada terapéutica con mi experiencia en competencia internacional para lograr procesos efectivos, seguros y sostenibles.</p>
+                        <div class="pt-6 border-t border-gold/20 mt-8"><p class="text-2xl text-gold-light font-semibold italic">No es solo tratar una lesión.<br>Es entender el cuerpo, corregir la causa y construir una base sólida para que vuelvas a moverte con confianza.</p></div>
+                    </div>
+                    <span class="quote-mark absolute -bottom-20 right-0 rotate-180">"</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="experiencia" class="py-24 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="font-orbitron text-4xl md:text-5xl font-black mb-4"><span class="gradient-text">EXPERIENCIA PROFESIONAL</span></h2>
+                <p class="text-gray-400 text-lg">Trayectoria en el ámbito deportivo y clínico</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="experience-card rounded-2xl p-8 scroll-reveal"><div class="flex items-start gap-4"><div class="w-14 h-14 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center flex-shrink-0"><span class="text-2xl">🎾</span></div><div><h3 class="text-xl font-bold text-white mb-2">Kinesióloga del Circuito de Tenis Femenino</h3><p class="text-gold font-semibold mb-2">WTA Tour</p><p class="text-gray-400 text-sm">Atención integral de tenistas profesionales en competencias internacionales. Prevención, tratamiento inmediato y recuperación funcional.</p></div></div></div>
+                <div class="experience-card rounded-2xl p-8 scroll-reveal"><div class="flex items-start gap-4"><div class="w-14 h-14 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center flex-shrink-0"><i data-lucide="car" class="w-6 h-6 text-gold"></i></div><div><h3 class="text-xl font-bold text-white mb-2">Kinesióloga del TC</h3><p class="text-gold font-semibold mb-2">Turismo Carretera</p><p class="text-gray-400 text-sm">Atención a pilotos y equipos de competición. Manejo de alta demanda física y estrategias de recuperación entre carreras.</p></div></div></div>
+                <div class="experience-card rounded-2xl p-8 scroll-reveal"><div class="flex items-start gap-4"><div class="w-14 h-14 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center flex-shrink-0"><i data-lucide="mountain" class="w-6 h-6 text-gold"></i></div><div><h3 class="text-xl font-bold text-white mb-2">Kinesióloga Centro de Entrenamiento</h3><p class="text-gold font-semibold mb-2">Estapartano360</p><p class="text-gray-400 text-sm">Centro especializado en preparación física y OCR. Desarrollo de protocolos de recuperación para atletas de resistencia.</p></div></div></div>
+                <div class="experience-card rounded-2xl p-8 scroll-reveal"><div class="flex items-start gap-4"><div class="w-14 h-14 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center flex-shrink-0"><i data-lucide="building-2" class="w-6 h-6 text-gold"></i></div><div><h3 class="text-xl font-bold text-white mb-2">Ergonomía Laboral</h3><p class="text-gold font-semibold mb-2">Empresas Internacionales</p><p class="text-gray-400 text-sm">Consultoría en prevención de lesiones laborales, evaluación ergonómica y programas de bienestar corporativo.</p></div></div></div>
+            </div>
+            <div class="mt-12 text-center scroll-reveal"><div class="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-gold/30 bg-gold/5"><i data-lucide="award" class="w-5 h-5 text-gold"></i><span class="text-gold-light font-semibold">Atleta Élite Internacional • Embajadora Spartan • Top 5 OCR Mundial</span></div></div>
+        </div>
+    </section>
+    <section id="planes" class="py-24 bg-black relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="font-orbitron text-4xl md:text-5xl font-black mb-4"><span class="gradient-text">PLANES MFC-7</span></h2>
+                <p class="text-2xl text-gold-light mb-4 italic">"Rehabilitar sin dejar de entrenar"</p>
+                <p class="text-gray-400 text-lg max-w-3xl mx-auto">Programas de 4 semanas diseñados para mantener tu actividad física mientras recuperás de una lesión.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="price-tag rounded-2xl p-8 card-hover scroll-reveal">
+                    <div class="text-center mb-8"><div class="inline-block mb-4 logo-glow"><div class="logo-css logo-css-large"><span class="mfc">MFC</span><span class="seven">7</span></div></div><h3 class="text-2xl font-bold text-gold-light mb-2 uppercase tracking-wider">Base</h3><div class="flex items-baseline justify-center gap-1 my-4"><span class="text-3xl text-gray-400">$</span><span class="text-5xl font-orbitron font-black text-white">100.000</span><span class="text-xl text-gray-400">ARS</span></div><p class="text-gray-400 text-sm uppercase tracking-wider">4 semanas de duración</p></div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start gap-3 text-gray-300"><i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0 mt-0.5"></i><span><strong class="text-white">Evaluación inicial personalizada</strong><br><span class="text-sm text-gray-400">Análisis completo de tu situación</span></span></li>
+                        <li class="flex items-start gap-3 text-gray-300"><i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0 mt-0.5"></i><span><strong class="text-white">Planificación personalizada</strong><br><span class="text-sm text-gray-400">Rutina adaptada a tu lesión y objetivos</span></span></li>
+                        <li class="flex items-start gap-3 text-gray-300"><i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0 mt-0.5"></i><span><strong class="text-white">Videos explicativos</strong><br><span class="text-sm text-gray-400">Demostraciones de cada ejercicio</span></span></li>
+                        <li class="flex items-start gap-3 text-gray-300"><i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0 mt-0.5"></i><span><strong class="text-white">Grupo exclusivo de WhatsApp</strong><br><span class="text-sm text-gray-400">Comunidad de apoyo y consultas</span></span></li>
+                    </ul>
+                    <a href="https://wa.me/5493704240790?text=Hola! Me interesa el Plan MFC-7 Base ($100.000 ARS)" target="_blank" rel="noopener noreferrer" class="block w-full text-center border-2 border-gold text-gold hover:bg-gold hover:text-black font-bold py-4 rounded-full uppercase tracking-wider transition-all duration-300" onclick="handlePlanClick(this, 'Base')">Elegir Plan Base</a>
+                </div>
+                <div class="price-tag rounded-2xl p-8 card-hover border-gold bg-gradient-to-b from-gold/10 to-transparent relative scroll-reveal">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2"><span class="bg-gold text-black px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Recomendado</span></div>
+                    <div class="text-center mb-8"><div class="inline-block mb-4 logo-glow"><div class="logo-css logo-css-large"><span class="mfc">MFC</span><span class="seven">7</span></div></div><h3 class="text-2xl font-bold text-gold-light mb-2 uppercase tracking-wider">Elite</h3><div class="flex items-baseline justify-center gap-1 my-4"><span class="text-3xl text-gray-400">$</span><span class="text-5xl font-orbitron font-black text-white">130.000</span><span class="text-xl text-gray-400">ARS</span></div><p class="text-gray-400 text-sm uppercase tracking-wider">4 semanas de duración</p></div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start gap-3 text-gray-300"><i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0 mt-0.5"></i><span><strong class="text-white">Todo lo del Plan Base</strong><br><span class="text-sm text-gray-400">Evaluación, planificación, videos y grupo</span></span></li>
+                        <li class="flex items-start gap-3 text-gray-300"><i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0 mt-0.5"></i><span><strong class="text-white">Nutrición personalizada</strong><br><span class="text-sm text-gray-400">Plan alimenticio adaptado a tu recuperación</span></span></li>
+                        <li class="flex items-start gap-3 text-gray-300"><i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0 mt-0.5"></i><span><strong class="text-white">Seguimiento por WhatsApp diario</strong><br><span class="text-sm text-gray-400">Consultas ilimitadas todos los días</span></span></li>
+                        <li class="flex items-start gap-3 text-gray-300"><i data-lucide="check-circle" class="w-5 h-5 text-gold flex-shrink-0 mt-0.5"></i><span><strong class="text-white">Entrevista semanal vía WhatsApp</strong><br><span class="text-sm text-gray-400">Videollamada 1 vez por semana</span></span></li>
+                    </ul>
+                    <a href="https://wa.me/5493704240790?text=Hola! Me interesa el Plan MFC-7 Elite ($130.000 ARS)" target="_blank" rel="noopener noreferrer" class="block w-full text-center btn-gold text-black font-bold py-4 rounded-full uppercase tracking-wider" onclick="handlePlanClick(this, 'Elite')">Elegir Plan Elite</a>
+                </div>
+            </div>
+            <div class="mt-12 text-center scroll-reveal"><p class="text-gray-400 text-sm max-w-2xl mx-auto"><i data-lucide="info" class="w-4 h-4 inline-block mr-1 text-gold"></i>Los precios son en pesos argentinos (ARS). Consultá por planes de 8 o 12 semanas con descuento.</p></div>
+        </div>
+    </section>
+    <section id="contacto" class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-gold/10 via-transparent to-gold/10"></div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 scroll-reveal">
+            <div class="mb-8 logo-glow inline-block"><div class="logo-css logo-css-xl"><span class="mfc">MFC</span><span class="seven">7</span></div></div>
+            <h2 class="font-orbitron text-4xl md:text-5xl font-black mb-6"><span class="text-white">¿LISTO PARA</span><br/><span class="gradient-text">RECUPERARTE?</span></h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Agendá tu evaluación inicial y comenzá tu proceso de recuperación personalizado.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <a href="https://wa.me/5493704240790" target="_blank" rel="noopener noreferrer" class="btn-gold text-black font-bold py-4 px-10 rounded-full uppercase tracking-wider text-lg flex items-center justify-center gap-2" onclick="handleWhatsAppClick(this)"><i data-lucide="message-circle" class="w-5 h-5"></i><span>Consultar por WhatsApp</span></a>
+                <a href="https://www.instagram.com/mflorenciacano_" target="_blank" rel="noopener noreferrer" class="border-2 border-white text-white hover:bg-white hover:text-black font-bold py-4 px-10 rounded-full uppercase tracking-wider text-lg transition-all duration-300 flex items-center justify-center gap-2"><i data-lucide="instagram" class="w-5 h-5"></i><span>Seguir en Instagram</span></a>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 text-left">
+                <div class="bg-black/50 backdrop-blur rounded-xl p-6 border border-gold/20 hover:border-gold/50 transition-colors"><i data-lucide="map-pin" class="w-6 h-6 text-gold mb-3"></i><h4 class="font-bold text-white mb-1">Atención</h4><p class="text-gray-400 text-sm">Argentina<br>Presencial y Online</p></div>
+                <div class="bg-black/50 backdrop-blur rounded-xl p-6 border border-gold/20 hover:border-gold/50 transition-colors"><i data-lucide="phone" class="w-6 h-6 text-gold mb-3"></i><h4 class="font-bold text-white mb-1">WhatsApp</h4><p class="text-gray-400 text-sm">+54 9 3704 24-0790<br>Respuesta inmediata</p></div>
+                <div class="bg-black/50 backdrop-blur rounded-xl p-6 border border-gold/20 hover:border-gold/50 transition-colors"><i data-lucide="clock" class="w-6 h-6 text-gold mb-3"></i><h4 class="font-bold text-white mb-1">Horarios</h4><p class="text-gray-400 text-sm">Lunes a Sábado<br>9:00 - 20:00 hs</p></div>
+            </div>
+        </div>
+    </section>
+    <footer class="bg-black border-t border-gold/20 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-8">
+                <div class="logo-css logo-glow text-4xl"><span class="mfc">MFC</span><span class="seven">7</span></div>
+                <div class="flex gap-6">
+                    <a href="https://www.instagram.com/mflorenciacano_" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold hover:bg-gold hover:text-black transition-all" aria-label="Instagram"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+                    <a href="https://youtube.com/@florenciacano1342" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold hover:bg-gold hover:text-black transition-all" aria-label="YouTube"><i data-lucide="youtube" class="w-6 h-6"></i></a>
+                    <a href="https://wa.me/5493704240790" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold hover:bg-gold hover:text-black transition-all" aria-label="WhatsApp"><i data-lucide="message-circle" class="w-6 h-6"></i></a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center"><p class="text-gray-500 text-sm">© 2024 MFC-7 Recovery. Todos los derechos reservados.</p><p class="text-gray-600 text-xs mt-2">María Florencia Cano • Kinesiología • Osteopatía • Rehabilitación Deportiva</p><p class="text-gray-600 text-xs mt-1">Formosa, Argentina</p></div>
+        </div>
+    </footer>
+    <script>
+        lucide.createIcons();
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        let isMenuOpen = false;
+        menuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('mobile-menu-open');
+            if (isMenuOpen) { menuIcon.setAttribute('data-lucide', 'x'); menuBtn.setAttribute('aria-expanded', 'true'); } else { menuIcon.setAttribute('data-lucide', 'menu'); menuBtn.setAttribute('aria-expanded', 'false'); }
+            lucide.createIcons();
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { isMenuOpen = false; mobileMenu.classList.add('hidden'); mobileMenu.classList.remove('mobile-menu-open'); menuIcon.setAttribute('data-lucide', 'menu'); menuBtn.setAttribute('aria-expanded', 'false'); lucide.createIcons(); }); });
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        document.querySelectorAll('.scroll-reveal').forEach((el) => observer.observe(el));
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => { const currentScroll = window.pageYOffset; if (currentScroll > 100) { navbar.classList.add('bg-black/95'); navbar.classList.remove('bg-black/80'); } else { navbar.classList.add('bg-black/80'); navbar.classList.remove('bg-black/95'); } });
+        function handleWhatsAppClick(btn) { const originalText = btn.innerHTML; btn.classList.add('btn-loading'); btn.innerHTML = '<span>Abriendo WhatsApp...</span>'; setTimeout(() => { btn.classList.remove('btn-loading'); btn.innerHTML = originalText; lucide.createIcons(); }, 2000); }
+        function handlePlanClick(btn, planName) { btn.classList.add('btn-loading'); btn.innerHTML = '<span>Redirigiendo...</span>'; }
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function (e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }); });
+    </script>
+</body>
+</html>
